@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV - MOUJAHID</title>
+    <style>
+        /* Reset et styles de base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        body.dark-mode {
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+        }
+
+        .cv-container {
+            max-width: 1000px;
+            margin: 20px auto;
+            background: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            display: flex;
+        }
+
+        .dark-mode .cv-container {
+            background: #2d2d2d;
+            box-shadow: 0 0 20px rgba(0,0,0,0.3);
+        }
+
+        /* Contrôles du mode */
+        .theme-controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .theme-btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .theme-btn:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+
+        /* Colonne gauche */
+        .sidebar {
+            flex: 1;
+            background: #2c3e50;
+            color: white;
+            padding: 30px;
+            position: relative;
+        }
+
+        .dark-mode .sidebar {
+            background: #34495e;
+        }
+
+        .main-content {
+            flex: 2;
+            padding: 40px;
+        }
+
+        /* Photo de profil */
+        .profile-photo {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            border: 4px solid #3498db;
+            margin: 0 auto 20px;
+            overflow: hidden;
+            background: #ecf0f1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .dark-mode .profile-photo {
+            background: #4a4a4a;
+            border-color: #1abc9c;
+        }
+
+        .profile-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .photo-placeholder {
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+
+        .dark-mode .photo-placeholder {
+            color: #bdc3c7;
+        }
+
+        /* En-tête */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #3498db;
+        }
+
+        .dark-mode .header {
+            border-bottom-color: #1abc9c;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .dark-mode .header h1 {
+            color: #ecf0f1;
+        }
+
+        .header .title {
+            font-size: 1.3em;
+            color: #3498db;
+            font-weight: bold;
+        }
+
+        .dark-mode .header .title {
+            color: #1abc9c;
+        }
+
+        /* Sections */
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .section h2 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+
+        .dark-mode .section h2 {
+            color: #ecf0f1;
+            border-bottom-color: #1abc9c;
+        }
+
+        .sidebar .section h2 {
+            color: #ecf0f1;
+            border-bottom: 2px solid #3498db;
+        }
+
+        .dark-mode .sidebar .section h2 {
+            border-bottom-color: #1abc9c;
+        }
+
+        /* Items */
+        .item {
+            margin-bottom: 20px;
+        }
+
+        .item h3 {
+            color: #2c3e50;
+            margin-bottom: 5px;
+            font-size: 1.1em;
+        }
+
+        .dark-mode .item h3 {
+            color: #ecf0f1;
+        }
+
+        .item .date {
+            color: #7f8c8d;
+            font-style: italic;
+            margin-bottom: 5px;
+        }
+
+        .dark-mode .item .date {
+            color: #bdc3c7;
+        }
+
+        .sidebar .item p {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Barres de compétences */
+        .skill {
+            margin-bottom: 15px;
+        }
+
+        .skill-name {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .skill-bar {
+            background: #34495e;
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .skill-level {
+            background: #3498db;
+            height: 100%;
+            border-radius: 4px;
+        }
+
+        .dark-mode .skill-level {
+            background: #1abc9c;
+        }
+
+        /* Langues */
+        .language {
+            margin-bottom: 10px;
+        }
+
+        .language-name {
+            font-weight: bold;
+        }
+
+        .language-level {
+            color: #bdc3c7;
+            font-style: italic;
+        }
+
+        /* Liste */
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        ul li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        ul li:before {
+            content: "▸";
+            color: #3498db;
+            position: absolute;
+            left: 0;
+        }
+
+        .dark-mode ul li:before {
+            color: #1abc9c;
+        }
+
+        /* Styles pour le mode sombre supplémentaires */
+        .dark-mode .sidebar .item p {
+            color: #ecf0f1;
+        }
+
+        .dark-mode .skill-bar {
+            background: #4a4a4a;
+        }
+    </style>
+</head>
+<body class="light-mode">
+    <!-- Contrôles du thème -->
+    <div class="theme-controls">
+        <button class="theme-btn" onclick="toggleTheme()">
+            <span id="theme-icon">🌙</span>
+            <span id="theme-text">Mode Sombre</span>
+        </button>
+    </div>
+
+    <div class="cv-container">
+        <!-- Colonne gauche -->
+        <div class="sidebar">
+            <!-- Photo de profil -->
+            <div class="profile-photo">
+                <!-- Remplacez "photo.jpg" par le chemin de votre photo -->
+                <!-- <img src="photo.jpg" alt="Photo de profil"> -->
+                <div class="photo-placeholder">
+                    📷<br>
+                    Photo<br>
+                    180x180px
+                </div>
+            </div>
+
+            <!-- Contact -->
+            <div class="section">
+                <h2>Contact</h2>
+                <div class="item">
+                    <p>📧 moujahid@email.com</p>
+                    <p>📞 +212 6 12 34 56 78</p>
+                    <p>📍 Casablanca, Maroc</p>
+                    <p>🔗 linkedin.com/in/moujahid</p>
+                    <p>💻 github.com/moujahid</p>
+                </div>
+            </div>
+
+            <!-- Compétences -->
+            <div class="section">
+                <h2>Compétences</h2>
+                <div class="skill">
+                    <span class="skill-name">HTML/CSS</span>
+                    <div class="skill-bar">
+                        <div class="skill-level" style="width: 90%;"></div>
+                    </div>
+                </div>
+                <div class="skill">
+                    <span class="skill-name">JavaScript</span>
+                    <div class="skill-bar">
+                        <div class="skill-level" style="width: 85%;"></div>
+                    </div>
+                </div>
+                <div class="skill">
+                    <span class="skill-name">React</span>
+                    <div class="skill-bar">
+                        <div class="skill-level" style="width: 80%;"></div>
+                    </div>
+                </div>
+                <div class="skill">
+                    <span class="skill-name">Node.js</span>
+                    <div class="skill-bar">
+                        <div class="skill-level" style="width: 75%;"></div>
+                    </div>
+                </div>
+                <div class="skill">
+                    <span class="skill-name">Python</span>
+                    <div class="skill-bar">
+                        <div class="skill-level" style="width: 70%;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Langues -->
+            <div class="section">
+                <h2>Langues</h2>
+                <div class="language">
+                    <span class="language-name">Arabe</span>
+                    <div class="language-level">Langue maternelle</div>
+                </div>
+                <div class="language">
+                    <span class="language-name">Français</span>
+                    <div class="language-level">Courant</div>
+                </div>
+                <div class="language">
+                    <span class="language-name">Anglais</span>
+                    <div class="language-level">Intermédiaire</div>
+                </div>
+            </div>
+
+            <!-- Centres d'intérêt -->
+            <div class="section">
+                <h2>Centres d'intérêt</h2>
+                <div class="item">
+                    <p>💻 Développement web</p>
+                    <p>📚 Lecture</p>
+                    <p>⚽ Football</p>
+                    <p>🎮 Jeux vidéo</p>
+                    <p>✈️ Voyages</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contenu principal -->
+        <div class="main-content">
+            <!-- En-tête -->
+            <div class="header">
+                <h1>MOUJAHID</h1>
+                <div class="title">Développeur Full Stack</div>
+            </div>
+
+            <!-- Profil -->
+            <div class="section">
+                <h2>Profil Professionnel</h2>
+                <p>Développeur passionné avec 5 ans d'expérience dans le développement web. Spécialisé dans les technologies JavaScript, je suis à la recherche de nouveaux défis techniques et humains. Rigoureux et curieux, j'aime participer à des projets innovants.</p>
+            </div>
+
+            <!-- Expériences -->
+            <div class="section">
+                <h2>Expériences Professionnelles</h2>
+                
+                <div class="item">
+                    <h3>Développeur Full Stack</h3>
+                    <div class="date">Tech Solutions - Casablanca | 2020 - Présent</div>
+                    <ul>
+                        <li>Développement d'applications web avec React et Node.js</li>
+                        <li>Conception et maintenance de bases de données MongoDB</li>
+                        <li>Collaboration avec une équipe de 8 développeurs</li>
+                        <li>Amélioration des performances de 40%</li>
+                    </ul>
+                </div>
+
+                <div class="item">
+                    <h3>Développeur Front-End</h3>
+                    <div class="date">Web Agency - Rabat | 2018 - 2020</div>
+                    <ul>
+                        <li>Création de sites web responsifs</li>
+                        <li>Intégration de maquettes Photoshop/Figme</li>
+                        <li>Optimisation SEO et accessibilité</li>
+                        <li>Développement de 15+ projets clients</li>
+                    </ul>
+                </div>
+
+                <div class="item">
+                    <h3>Stagiaire Développeur</h3>
+                    <div class="date">StartUp Innovante | 2017 - 2018</div>
+                    <ul>
+                        <li>Support à l'équipe de développement</li>
+                        <li>Tests et débogage d'applications</li>
+                        <li>Documentation technique</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Formation -->
+            <div class="section">
+                <h2>Formation</h2>
+                
+                <div class="item">
+                    <h3>Master en Informatique</h3>
+                    <div class="date">Université Hassan II - Casablanca | 2016 - 2018</div>
+                    <p>Spécialisation Développement Web</p>
+                </div>
+
+                <div class="item">
+                    <h3>Licence en Informatique</h3>
+                    <div class="date">Université Mohammed V - Rabat | 2013 - 2016</div>
+                    <p>Mention Assez Bien</p>
+                </div>
+            </div>
+
+            <!-- Projets -->
+            <div class="section">
+                <h2>Projets Personnels</h2>
+                
+                <div class="item">
+                    <h3>Application E-commerce</h3>
+                    <p>Développement d'une plateforme de vente en ligne avec React et Firebase</p>
+                </div>
+
+                <div class="item">
+                    <h3>Jeu Mobile Éducatif</h3>
+                    <p>Création d'un jeu mobile éducatif avec React Native</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Fonction pour basculer entre les modes
+        function toggleTheme() {
+            const body = document.body;
+            const themeIcon = document.getElementById('theme-icon');
+            const themeText = document.getElementById('theme-text');
+            
+            if (body.classList.contains('light-mode')) {
+                // Passer en mode sombre
+                body.classList.remove('light-mode');
+                body.classList.add('dark-mode');
+                themeIcon.textContent = '☀️';
+                themeText.textContent = 'Mode Clair';
+            } else {
+                // Passer en mode clair
+                body.classList.remove('dark-mode');
+                body.classList.add('light-mode');
+                themeIcon.textContent = '🌙';
+                themeText.textContent = 'Mode Sombre';
+            }
+        }
+
+        // Script pour gérer le téléchargement de photo
+        document.addEventListener('DOMContentLoaded', function() {
+            const profilePhoto = document.querySelector('.profile-photo');
+            const photoPlaceholder = document.querySelector('.photo-placeholder');
+            
+            profilePhoto.addEventListener('click', function() {
+                // Créer un input file caché
+                const fileInput = document.createElement('input');
+                fileInput.type = 'file';
+                fileInput.accept = 'image/*';
+                
+                fileInput.onchange = function(e) {
+                    const file = e.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = function(event) {
+                            // Créer l'image
+                            const img = document.createElement('img');
+                            img.src = event.target.result;
+                            img.alt = 'Photo de profil';
+                            
+                            // Vider le placeholder et ajouter l'image
+                            profilePhoto.innerHTML = '';
+                            profilePhoto.appendChild(img);
+                        }
+                        reader.readAsDataURL(file);
+                    }
+                }
+                
+                fileInput.click();
+            });
+            
+            // Message pour la photo
+            photoPlaceholder.innerHTML = '📷<br>Cliquez pour<br>ajouter une photo<br>180x180px';
+        });
+    </script>
+</body>
+</html>
